@@ -6,6 +6,7 @@ import {
     Account,
     Ed25519PrivateKey
 } from '@aptos-labs/ts-sdk';
+import AptosBlockchainService from '../services/AptosBlockchain.service.js';
 
 const router = express.Router();
 
@@ -14,6 +15,7 @@ const config = new AptosConfig({
 });
 const aptos = new Aptos(config);
 
+// Get Aptos configuration
 router.get('/config', (req, res) => {
     res.json({
         network: process.env.APTOS_NETWORK,
@@ -23,6 +25,7 @@ router.get('/config', (req, res) => {
     });
 });
 
+// Create backend account
 router.post('/create-account', async (req, res) => {
     try {
         const privateKey = new Ed25519PrivateKey(process.env.APTOS_PRIVATE_KEY);
@@ -43,35 +46,49 @@ router.post('/create-account', async (req, res) => {
     }
 });
 
-router.get('/balance/:address', async (req, res) => {
+// Transfer GUI tokens
+router.post('/transfer', async (req, res) => {
     try {
         const {
-            address
-        } = req.params;
-        const resources = await aptos.getAccountResources({
-            accountAddress: address
-        });
+            fromAddress,
+            toAddress,
+            amount
+        } = req.body;
 
-        const coinResource = resources.find(r =>
-            r.type === '0x1::coin::CoinStore<0x1::aptos_coin::AptosCoin>'
-        );
+        if (!fromAddress || !toAddress || !amount) {
+            return res.json({
+                success: false,
+                error: 'Missing required fields'
+            });
+        }
 
-        const balance = coinResource ?
-            parseInt(coinResource.data.coin.value) / 100000000 : 0;
-
-        res.json({
-            success: true,
-            balance: balance,
-            address: address
-        });
+        const result = await AptosBlockchainService.transferGUI(fromAddress, toAddress, amount);
+        res.json(result);
     } catch (error) {
-        res.status(500).json({
+        res.json({
             success: false,
             error: error.message
         });
     }
 });
 
+// Get GUI balance
+router.get('/balance/:address', async (req, res) => {
+    try {
+        const {
+            address
+        } = req.params;
+        const result = await AptosBlockchainService.getGUIBalance(address);
+        res.json(result);
+    } catch (error) {
+        res.json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+// Fund account (testnet only)
 router.post('/fund-account', async (req, res) => {
     try {
         const {

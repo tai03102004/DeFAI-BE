@@ -1,12 +1,23 @@
 header.header
-  .user-avatar  #{username}
+  .user-avatar #{username}
   .wallet-section
     button.connect-wallet-btn#connectWalletBtn(onclick="openWalletModal()")
       i.fas.fa-wallet
-      span#walletBtnText Connect wallet
-    .wallet-info-display#walletInfo
-      div
-        .wallet-balance#walletBalance 0 APT
-        .wallet-address#walletAddress
-  button.add-btn
-    i.fas.fa-plus
+      span Connect Wallet
+    .wallet-info-display#walletInfo(style="display: none")
+      .wallet-address#walletAddress
+      .wallet-actions
+        button.disconnect-btn(onclick="simpleWallet.disconnect()")
+          i.fas.fa-sign-out-alt
+          span Disconnect
+
+.modal#walletModal(style="display: none")
+  .modal-content
+    .modal-header
+      h3 Connect Wallet
+      button.close-btn(onclick="closeWalletModal()") ×
+    .modal-body
+      button.wallet-option(onclick="connectBackendAccount()")
+        i.fas.fa-server
+        span Fund Account (Testnet)
+        small Get free APT for testing
