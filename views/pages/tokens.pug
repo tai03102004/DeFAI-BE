@@ -13,6 +13,8 @@ block content
           button.time-btn.active(data-timeframe="24h") 24H
           button.time-btn(data-timeframe="7d") 7D
           button.time-btn(data-timeframe="30d") 30D
+        .chart-type-selector
+          button#chartTypeToggle.chart-type-btn Line Chart
 
     .chart-section
       .price-display
@@ -63,4 +65,6 @@ block content
 
 block scripts
   script(src="https://cdn.jsdelivr.net/npm/chart.js")
+  script(src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns")
+  script(src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial")
   script(type='module', src='/js/tokens.js')

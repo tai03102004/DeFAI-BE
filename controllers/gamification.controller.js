@@ -62,6 +62,7 @@ export const quizCreate = async (req, res) => {
             userId
         } = req.query;
         const quiz = await GamificationService.createQuiz(userId);
+        console.log('Quiz created:', quiz);
         res.json({
             success: true,
             data: quiz
@@ -125,7 +126,8 @@ export const createPrediction = async (req, res) => {
             userId,
             coin,
             direction,
-            currentPrice
+            currentPrice,
+            wager
         } = req.body;
 
         if (!userId || !coin || !direction || !currentPrice) {
@@ -142,11 +144,21 @@ export const createPrediction = async (req, res) => {
             });
         }
 
+        // Validate wager
+        const wagerAmount = wager ? parseInt(wager) : 10;
+        if (wagerAmount < 10) {
+            return res.status(400).json({
+                success: false,
+                error: 'Minimum wager is 10 GUI'
+            });
+        }
+
         const result = await GamificationService.createPrediction(
             userId,
             coin,
             direction.toLowerCase(),
-            currentPrice
+            currentPrice,
+            wagerAmount // Pass the actual wager amount
         );
 
         if (result.success) {

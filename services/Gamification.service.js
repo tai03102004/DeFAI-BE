@@ -334,7 +334,7 @@ class GamificationService extends EventEmitter {
         }
     }
 
-    async createPrediction(userId, coin, direction, currentPrice) {
+    async createPrediction(userId, coin, direction, currentPrice, wager = 10) {
         try {
             const user = await GamificationUser.findOne({
                 userId
@@ -352,12 +352,20 @@ class GamificationService extends EventEmitter {
                 };
             }
 
-            // Check minimum GUI balance for prediction (e.g., 10 GUI required)
-            const minimumBalance = 10;
-            if (user.guiBalance < minimumBalance) {
+            // Validate wager amount
+            const wagerAmount = parseInt(wager) || 10;
+            if (wagerAmount < 10) {
                 return {
                     success: false,
-                    error: `You need at least ${minimumBalance} GUI tokens to make a prediction!`
+                    error: 'Minimum wager is 10 GUI tokens'
+                };
+            }
+
+            // Check if user has enough balance for wager
+            if (user.guiBalance < wagerAmount) {
+                return {
+                    success: false,
+                    error: `Insufficient GUI balance. You need ${wagerAmount} GUI tokens to make this prediction`
                 };
             }
 
@@ -379,22 +387,22 @@ class GamificationService extends EventEmitter {
                     userId,
                     username: user.username,
                     predictedDirection: direction, // 'up' or 'down'
-                    wager: 10, // Fixed wager for now
+                    wager: wagerAmount, // Use actual wager amount
                     submittedAt: new Date()
                 }],
-                totalPool: 10
+                totalPool: wagerAmount
             });
 
             await prediction.save();
 
-            // Update user data - FIX: Set lastPredictionDate to current date
-            user.lastPredictionDate = new Date(); // This was the issue
+            // Update user data
+            user.lastPredictionDate = new Date();
             user.totalPredictions = (user.totalPredictions || 0) + 1;
-            user.guiBalance -= 10; // Deduct wager amount
+            user.guiBalance -= wagerAmount; // Deduct actual wager amount
 
             await user.save();
 
-            console.log(`🎯 User ${user.username} made prediction: ${coin} will go ${direction}`);
+            console.log(`🎯 User ${user.username} made prediction: ${coin} will go ${direction} with ${wagerAmount} GUI`);
 
             return {
                 success: true,
@@ -403,7 +411,7 @@ class GamificationService extends EventEmitter {
                     coin: coin.toUpperCase(),
                     direction,
                     currentPrice,
-                    wager: 10,
+                    wager: wagerAmount,
                     expiresAt,
                     remainingBalance: user.guiBalance
                 }
@@ -432,6 +440,65 @@ class GamificationService extends EventEmitter {
             console.log(`✅ Resolved ${expiredPredictions.length} expired predictions`);
         } catch (error) {
             console.error('❌ Resolve predictions error:', error);
+        }
+    }
+
+    // Add these methods to the class
+
+    async getUserActivePredictions(userId) {
+        try {
+            const predictions = await Prediction.find({
+                'participants.userId': userId,
+                status: 'active'
+            }).sort({
+                createdAt: -1
+            });
+
+            return predictions.map(pred => {
+                const userParticipation = pred.participants.find(p => p.userId === userId);
+                return {
+                    predictionId: pred.predictionId,
+                    symbol: pred.symbol,
+                    currentPrice: pred.currentPrice,
+                    predictedDirection: userParticipation.predictedDirection,
+                    wager: userParticipation.wager,
+                    expiresAt: pred.expiresAt,
+                    status: pred.status
+                };
+            });
+        } catch (error) {
+            console.error('❌ Error getting active predictions:', error);
+            throw error;
+        }
+    }
+
+    async getUserPredictions(userId, limit = 10) {
+        try {
+            const predictions = await Prediction.find({
+                'participants.userId': userId
+            }).sort({
+                createdAt: -1
+            }).limit(limit);
+
+            return predictions.map(pred => {
+                const userParticipation = pred.participants.find(p => p.userId === userId);
+                return {
+                    predictionId: pred.predictionId,
+                    symbol: pred.symbol,
+                    currentPrice: pred.currentPrice,
+                    actualPrice: pred.actualPrice,
+                    predictedDirection: userParticipation.predictedDirection,
+                    wager: userParticipation.wager,
+                    won: userParticipation.won,
+                    reward: userParticipation.reward,
+                    status: pred.status,
+                    expiresAt: pred.expiresAt,
+                    submittedAt: userParticipation.submittedAt
+                };
+            });
+        } catch (error) {
+            console.error('❌ Error getting user predictions:', error);
+            throw error;
         }
     }
 

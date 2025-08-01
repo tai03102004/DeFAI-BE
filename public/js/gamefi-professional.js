@@ -311,7 +311,7 @@ class GameFiManager {
             }
 
             const quizData = result.data;
-            const question = quizData.question;
+            const question = quizData.data.question;
 
             const modal = this.createGameModal('quiz', 'Quiz', `
                 <div class="quiz-content">
@@ -482,7 +482,8 @@ class GameFiManager {
                     userId: this.userId,
                     coin: coin,
                     direction: direction,
-                    currentPrice: this.marketData[coin].price
+                    currentPrice: this.marketData[coin].price,
+                    wager: 10 // Add default wager amount
                 })
             });
 
@@ -500,6 +501,7 @@ class GameFiManager {
                             <p>Coin: <strong>${coin.toUpperCase()}</strong></p>
                             <p>Direction: <strong>${direction.toUpperCase()}</strong></p>
                             <p>Current Price: <strong>$${this.marketData[coin].price.toLocaleString()}</strong></p>
+                            <p>Wager: <strong>${result.data?.wager || 10} GUI</strong></p>
                             <p>Expires in: <strong>24 hours</strong></p>
                         </div>
                         <p class="reward-info">You'll earn <strong>50 GUI</strong> if correct!</p>
@@ -510,6 +512,9 @@ class GameFiManager {
                 `);
 
                 document.body.appendChild(successModal);
+
+                // Reload user profile to update balance
+                await this.loadUserProfile();
             } else {
                 const errorModal = this.createGameModal('prediction-error', 'Prediction Failed', `
                     <div class="prediction-error-content">
@@ -527,6 +532,20 @@ class GameFiManager {
 
         } catch (error) {
             console.error('❌ Prediction failed:', error);
+
+            // Show error modal for network issues
+            const errorModal = this.createGameModal('prediction-error', 'Network Error', `
+                <div class="prediction-error-content">
+                    <div class="error-icon">🌐</div>
+                    <h3>Connection Error</h3>
+                    <p>Failed to submit prediction. Please check your connection and try again.</p>
+                    <button class="ok-btn" onclick="gameFi.closeGameModal('prediction-error')">
+                        OK
+                    </button>
+                </div>
+            `);
+
+            document.body.appendChild(errorModal);
         }
     }
     async openTrading() {
