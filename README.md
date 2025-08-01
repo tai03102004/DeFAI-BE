@@ -2,6 +2,24 @@
 
 **Transform crypto trading complexity into an engaging, rewarding gaming experience where AI agents guide users through real market predictions and educational challenges while earning blockchain rewards on Aptos.**
 
+Here's a cleaner English version of your note:
+
+---
+
+**Note:** Since I’m using a free Ngrok host, please open the `TelegramBot.service.js` file in the `service` folder, find:
+
+```
+https://8d0ffd0e9fad.ngrok-free.app/webapp/miniapp
+```
+
+and replace
+
+```
+https://8d0ffd0e9fad.ngrok-free.app
+```
+
+with your desired host.
+
 ---
 
 ## 🚀 What is DeFAI?
