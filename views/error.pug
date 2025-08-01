@@ -1,0 +1,88 @@
+extends layout
+
+block content
+  .error-container
+    .error-content
+      .error-icon 😕
+      .error-title Oops! Something went wrong
+      .error-message= message || 'An unexpected error occurred'
+      if error
+        .error-details= error
+      .error-actions
+        a.btn.primary(href="/") Go Home
+        a.btn.secondary(href="javascript:history.back()") Go Back
+
+block scripts
+  style.
+    .error-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+    }
+    
+    .error-content {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      color: white;
+      max-width: 500px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .error-icon {
+      font-size: 4em;
+      margin-bottom: 20px;
+    }
+    
+    .error-title {
+      font-size: 2em;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    
+    .error-message {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+      opacity: 0.9;
+    }
+    
+    .error-details {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+      font-family: monospace;
+      font-size: 0.9em;
+      opacity: 0.8;
+    }
+    
+    .error-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.2);
+    }

@@ -94,7 +94,9 @@ class TechnicalAnalysisService {
 
         const infoCoin = await coinGeckoService.getAllInfoCoin([symbol]);
         const priceCoin = await coinGeckoService.getHistoricalDataForCoins([symbol], 100);
+        console.log(`📈 Lấy dữ liệu giá cho ${symbol} thành công`, priceCoin);
         const prices = priceCoin.data[symbol].prices.map(([_, price]) => price);
+        console.log(`📊 Giá ${symbol} trong 100 ngày:`, prices);
         const totalVolume = priceCoin.data[symbol].prices.map(([_, total_volumes]) => total_volumes);
 
         const dataCoin = {};

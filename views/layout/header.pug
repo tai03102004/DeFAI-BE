@@ -1,0 +1,12 @@
+header.header
+  .user-avatar  #{username}
+  .wallet-section
+    button.connect-wallet-btn#connectWalletBtn(onclick="openWalletModal()")
+      i.fas.fa-wallet
+      span#walletBtnText Connect wallet
+    .wallet-info-display#walletInfo
+      div
+        .wallet-balance#walletBalance 0 APT
+        .wallet-address#walletAddress
+  button.add-btn
+    i.fas.fa-plus

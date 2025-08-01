@@ -1,0 +1,66 @@
+extends ../layout
+
+block content
+  include ../layout/header
+  .tokens-container
+    .chart-header
+      h2 Market Charts
+      .chart-controls
+        .coin-selector
+          button.coin-btn.active(data-coin="bitcoin") Bitcoin
+          button.coin-btn(data-coin="ethereum") Ethereum
+        .timeframe-selector
+          button.time-btn.active(data-timeframe="24h") 24H
+          button.time-btn(data-timeframe="7d") 7D
+          button.time-btn(data-timeframe="30d") 30D
+
+    .chart-section
+      .price-display
+        .current-price
+          .coin-name#currentCoinName Bitcoin
+          .price-value#currentPrice $0
+          .price-change#currentChange +0%
+        
+        .market-stats
+          .stat-item
+            .stat-label 24h Volume
+            .stat-value#volume24h $0
+          .stat-item
+            .stat-label Market Cap
+            .stat-value#marketCap $0
+          .stat-item
+            .stat-label 24h High
+            .stat-value#high24h $0
+          .stat-item
+            .stat-label 24h Low
+            .stat-value#low24h $0
+
+      .chart-container: canvas#priceChart
+
+    .technical-indicators
+      h3 Technical Analysis
+      .indicators-grid
+        .indicator-card
+          .indicator-header
+            .indicator-name RSI
+            .indicator-value#rsiValue 50
+          .indicator-bar: .indicator-fill#rsiFill(style="width: 50%")
+          .indicator-signal#rsiSignal NEUTRAL
+
+        .indicator-card
+          .indicator-header
+            .indicator-name MACD
+            .indicator-value#macdValue 0
+          .indicator-signal#macdSignal NEUTRAL
+
+        .indicator-card
+          .indicator-header
+            .indicator-name Volume
+            .indicator-value#volumeValue NORMAL
+          .indicator-signal#volumeSignal NEUTRAL
+
+  include ../layout/footer
+
+block scripts
+  script(src="https://cdn.jsdelivr.net/npm/chart.js")
+  script(type='module', src='/js/tokens.js')

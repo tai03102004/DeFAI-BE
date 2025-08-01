@@ -1,0 +1,291 @@
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: var(--gradient-secondary);
+  border-bottom: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #4a90e2, #357abd);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+}
+
+.user-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
+}
+
+.wallet-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.connect-wallet-btn {
+  background: white;
+  color: black;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.connect-wallet-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+}
+
+.connect-wallet-btn.connected {
+  background: var(--gradient-primary);
+  color: white;
+}
+
+.wallet-info-display {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+}
+
+.wallet-info-display.active {
+  display: flex;
+}
+
+.wallet-address {
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+.wallet-balance {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.add-btn {
+  width: 40px;
+  height: 40px;
+  background: var(--secondary-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-btn:hover {
+  background: var(--hover-bg);
+  transform: scale(1.05);
+  border-color: var(--accent-color);
+}
+
+/* Footer Navigation Styles */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 414px;
+  background: var(--secondary-bg);
+  border-top: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  z-index: 200;
+  padding-bottom: env(safe-area-inset-bottom); /* iOS safe area */
+}
+
+/* Add bottom padding to prevent footer overlap */
+body {
+  padding-bottom: 90px;
+}
+
+.page-container,
+.home-container,
+.tokens-container,
+.earn-container,
+.memepad-container,
+.wallet-container {
+  padding-bottom: 120px !important; /* Ensure content doesn't hide behind footer */
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0 15px;
+  gap: 5px;
+}
+
+.footer .nav-item {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 8px 10px;
+  border-radius: 12px;
+  max-width: 70px;
+  margin: 0 auto;
+}
+
+.footer .nav-item:hover {
+  background: var(--hover-bg);
+  transform: translateY(-2px);
+}
+
+.footer .nav-item.active {
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid var(--accent-color);
+}
+
+.footer .nav-icon {
+  width: 24px;
+  height: 24px;
+  margin: 0 auto 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.footer .nav-item.active .nav-icon {
+  background: var(--accent-color);
+  color: black;
+  transform: scale(1.1);
+}
+
+.footer .nav-icon i {
+  font-size: 18px;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.footer .nav-item.active .nav-icon i {
+  color: black;
+}
+
+.footer .nav-item:hover .nav-icon i {
+  color: var(--text-primary);
+}
+
+.footer .nav-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  line-height: 1.2;
+}
+
+.footer .nav-item.active .nav-label {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.footer .nav-item:hover .nav-label {
+  color: var(--text-primary);
+}
+
+.nav-item {
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+  max-width: 100px;
+}
+
+.nav-item:hover {
+  transform: translateY(-5px);
+}
+
+.nav-icon {
+  width: 70px;
+  height: 70px;
+  background: var(--border-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  font-size: 24px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-icon::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  border-radius: inherit;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover .nav-icon::before {
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+
+.nav-label {
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .footer {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 15px;
+  }
+  .footer-nav {
+    padding: 6px 0 10px;
+  }
+}

@@ -1,0 +1,29 @@
+footer.footer
+  .footer-nav
+    .nav-item.active(onclick="navigateTo('home')")
+      .nav-icon
+        i.fas.fa-home
+      .nav-label Home
+    
+    .nav-item(onclick="navigateTo('earn')")
+      .nav-icon
+        i.fas.fa-coins
+      .nav-label Earn
+    
+    .nav-item(onclick="navigateTo('memepad')")
+      .nav-icon
+        i.fas.fa-rocket
+      .nav-label Memepad
+    
+    .nav-item(onclick="navigateTo('tokens')")
+      .nav-icon
+        i.fas.fa-chart-line
+      .nav-label Tokens
+    
+    .nav-item(onclick="navigateTo('wallet')")
+      .nav-icon
+        i.fas.fa-wallet
+      .nav-label Wallet
+
+block scripts
+  script(src="/js/navigation.js")

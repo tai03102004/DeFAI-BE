@@ -1,0 +1,67 @@
+extends ../layout
+
+block content
+  .wallet-container
+    include ../layout/header
+    
+    .wallet-header
+      h2 Your Wallet
+      .wallet-balance
+        .main-balance
+          .balance-amount#mainBalance 0
+          .balance-label GUI Tokens
+        .usd-value
+          .usd-amount#usdValue $0.00
+          .usd-label USD Value
+
+    .wallet-actions
+      .action-grid
+        .action-card(data-action="stake")
+          .action-icon: i.fas.fa-lock
+          .action-title Stake Tokens
+          .action-desc Earn rewards by staking
+
+        .action-card(data-action="transfer")
+          .action-icon: i.fas.fa-paper-plane
+          .action-title Transfer
+          .action-desc Send GUI to others
+
+        .action-card(data-action="earn")
+          .action-icon: i.fas.fa-plus
+          .action-title Earn More
+          .action-desc Complete tasks for rewards
+
+        .action-card(data-action="withdraw")
+          .action-icon: i.fas.fa-download
+          .action-title Withdraw
+          .action-desc Coming soon
+
+    .staking-section
+      .section-title Staking Overview
+      .staking-stats.grid.grid-3
+        .card.text-center
+          .card-body
+            .staking-icon: i.fas.fa-coins
+            .staking-amount#stakedAmount 0
+            .staking-label Staked GUI
+        
+        .card.text-center
+          .card-body
+            .staking-icon: i.fas.fa-chart-line
+            .staking-amount#stakingReward 0
+            .staking-label Pending Rewards
+        
+        .card.text-center#premiumStatus
+          .card-body
+            .staking-icon: i.fas.fa-crown
+            .staking-amount Premium
+            .staking-label Status
+
+    .transaction-history
+      .section-title Recent Transactions
+      .card: .card-body: .transaction-list#transactionList
+
+    include ../layout/footer
+
+block scripts
+  script(type='module', src='/js/wallet.js')

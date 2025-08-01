@@ -1,1 +1,1 @@
-I am unable to provide the requested information due to the tool malfunctioning and the inability to access and process news articles.
+I am unable to provide the requested information due to technical difficulties with the search tool. I cannot search for and retrieve the relevant news articles.

@@ -1,0 +1,169 @@
+extends ../layout
+
+block content
+  .container
+    // Header
+    include ../layout/header
+
+    // Navigation Icons
+    .nav-icons
+      .nav-item(onclick="gameFi.navigateTo('analysis')")
+        .nav-icon.launch
+          i.fas.fa-rocket
+        .nav-label Analysis BTC, ETH
+      
+      .nav-item(onclick="gameFi.navigateTo('frens')")
+        .nav-icon.frens
+          i.fas.fa-users
+        .nav-label Frens
+      
+      .nav-item(onclick="gameFi.navigateTo('trading')")
+        .nav-icon.trading
+          i.fas.fa-chart-line
+        .nav-label Trading bot
+
+    // Featured Section
+    .featured-section
+      .featured-content
+        .featured-text
+          h2 Check Out BLUM Token Listing Now!
+          p Trade the hottest new token on Aptos network
+          button.trade-btn(onclick="openTrading()") Trade Now
+        .featured-logo B
+      .progress-dots
+        span.dot.active
+        span.dot
+        span.dot
+        span.dot
+        span.dot
+        span.dot
+
+    // Top Gainers Section
+    h2.section-title Top Gainers
+    .gainers-list
+      .gainer-item(onclick="loadMarketData('BTC')" data-symbol="BTC")
+        .gainer-header
+          .token-icon ₿
+          .token-info
+            .token-symbol BTC
+            .token-price $117000$
+        .token-gain.positive +2.45%
+      
+      .gainer-item(onclick="loadMarketData('ETH')" data-symbol="ETH")
+        .gainer-header
+          .token-icon Ξ
+          .token-info
+            .token-symbol ETH
+            .token-price $2,840
+        .token-gain.positive +1.78%
+
+    // Categories
+    .categories
+      .category-item.active MCap
+      .category-item Hot
+      .category-item New
+      .category-item Listed
+      .category-item Staking
+
+    // Games Grid
+    .games-grid
+      .game-card(data-game="daily" onclick="gameFi.openGame('daily')")
+        .game-icon 🎁
+        .game-title Daily Rewards
+        .game-description Claim your daily $GUI tokens
+        .game-reward +50 $GUI
+        .game-status Available
+
+      .game-card(data-game="quiz" onclick="gameFi.openGame('quiz')")
+        .game-icon 🧠
+        .game-title Knowledge Quiz
+        .game-description Test your crypto knowledge
+        .game-reward +30 $GUI
+        .game-status 1/1 today
+
+      .game-card(data-game="prediction" onclick="gameFi.openGame('prediction')")
+        .game-icon 🎯
+        .game-title Price Prediction
+        .game-description Predict crypto prices
+        .game-reward Win Pool
+        .game-status Active
+
+      .game-card(data-game="staking" onclick="gameFi.openGame('staking')")
+        .game-icon 💎
+        .game-title Stake $GUI
+        .game-description Stake for premium benefits
+        .game-reward Premium Access
+        .game-status 500+ GUI
+
+      .game-card(data-game="trading" onclick="gameFi.openGame('trading')")
+        .game-icon 📈
+        .game-title Auto Trading
+        .game-description AI-powered trading bot
+        .game-reward Smart Profit
+        .game-status Beta
+
+      .game-card(data-game="portfolio" onclick="gameFi.openGame('portfolio')")
+        .game-icon 💼
+        .game-title Portfolio
+        .game-description Track your investments
+        .game-reward Analytics
+        .game-status Live
+
+    // Wallet Connection Modal
+    .modal#walletModal
+      .modal-content
+        button.close-modal(onclick="gameFi.closeWalletModal()") ×
+        .modal-header
+          h2.modal-title Connect Wallet
+          p.modal-subtitle Choose your preferred wallet to connect to Aptos Testnet
+        
+        .wallet-options
+          .wallet-option(onclick="gameFi.connectPetraWallet()")
+            .wallet-icon
+              i.fas.fa-wallet
+            .wallet-info
+              h3 Petra Wallet
+              p Most popular Aptos wallet
+          
+          .wallet-option(onclick="gameFi.connectMartianWallet()")
+            .wallet-icon
+              i.fas.fa-rocket
+            .wallet-info
+              h3 Martian Wallet
+              p Secure Aptos wallet
+          
+          .wallet-option(onclick="gameFi.connectPontemWallet()")
+            .wallet-icon
+              i.fas.fa-shield-alt
+            .wallet-info
+              h3 Pontem Wallet
+              p Enterprise-grade security
+
+    // Success Animation
+    .success-animation#successAnimation
+      .success-icon ✨
+      .success-text Connection Successful!
+      .success-amount Welcome to DeFAI
+
+    // User Profile Display (hidden by default)
+    .user-profile-display#userProfile
+      .profile-stats
+        .stat-item
+          .stat-label GUI Tokens
+          .stat-value.gui-balance 100 GUI
+        .stat-item
+          .stat-label Level
+          .stat-value.user-level Lv.1
+        .stat-item
+          .stat-label Streak
+          .stat-value.login-streak 0 days
+    // Footer
+    include ../layout/footer
+
+block styles
+  link(rel="stylesheet", href="/css/gamefi-modals.css")
+  link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css", rel="stylesheet")
+
+block scripts
+  script(type="module", src="/js/aptos-wallet.js")
+  script(type="module", src="/js/gamefi-professional.js")

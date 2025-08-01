@@ -34,6 +34,7 @@ class AlertSystem {
                     createdAt: new Date(),
                     id: `${signal.coin}_${Date.now()}`
                 };
+                console.log(`Setting trading signal for ${signal}:`, signalData);
                 this.activeSignals.set(signal.coin, signalData);
                 console.log(`Signal set for ${signal.coin}:`, signalData);
             }
@@ -244,6 +245,7 @@ class AlertSystem {
 
     checkTradingSignals(coinId, currentData) {
         const alerts = [];
+        console.log("Checking trading actives signals for:", this.activeSignals);
         const signal = this.activeSignals.get(coinId);
 
         console.log(`Checking trading signals for ${coinId.toUpperCase()}:`, signal);

@@ -1,0 +1,52 @@
+extends ../layout
+
+block content 
+  .earn-container
+    include ../layout/header
+    .earn-header
+      h2 Earn GUI Tokens
+      .balance-display
+        .balance-amount#userBalance #{userProfile.guiBalance}
+        .balance-label GUI Tokens
+
+    .daily-section
+      .section-title Daily Tasks
+      .task-grid
+        each task in [{id: 'dailyReward', icon: 'fas fa-gift', title: 'Daily Login', reward: '+50 GUI', desc: 'Login daily to maintain streak', action: 'Claim'}, {id: 'quizTask', icon: 'fas fa-brain', title: 'Crypto Quiz', reward: '+30 GUI', desc: 'Test your crypto knowledge', action: 'Start'}, {id: 'predictionTask', icon: 'fas fa-chart-line', title: 'Price Prediction', reward: '+50 GUI', desc: 'Predict market movements', action: 'Predict'}]
+          .task-card(id=task.id)
+            .task-icon: i(class=task.icon)
+            .task-info
+              .task-title= task.title
+              .task-reward= task.reward
+              .task-desc= task.desc
+            .task-action
+              button(class=task.id === 'dailyReward' ? 'claim-btn' : 'start-btn')= task.action
+
+    .achievements-section
+      .section-title Achievements
+      .achievement-grid
+        each achievement in [{icon: 'fas fa-trophy', title: 'First Login', desc: 'Complete your first login', status: 'completed'}, {icon: 'fas fa-fire', title: 'Streak Master', desc: 'Maintain 7-day login streak', status: 'locked'}, {icon: 'fas fa-star', title: 'Quiz Expert', desc: 'Answer 10 quiz questions correctly', status: 'locked'}]
+          .achievement-card
+            .achievement-icon: i(class=achievement.icon)
+            .achievement-info
+              .achievement-title= achievement.title
+              .achievement-desc= achievement.desc
+            .achievement-status(class=achievement.status)= achievement.status === 'completed' ? '✓' : '🔒'
+
+    .leaderboard-section
+      .section-title Top Earners
+      .leaderboard-list#leaderboardList
+
+  // Quiz Modal
+  .modal#quizModal
+    .modal-content
+      .modal-header
+        h3 Crypto Quiz
+        button.close-btn ×
+      .modal-body
+        .quiz-question#quizQuestion Loading...
+        .quiz-options#quizOptions
+        .quiz-info
+          .quiz-reward Reward: <span id="quizReward">30</span> GUI
+
+  include ../layout/footer

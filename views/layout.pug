@@ -1,0 +1,26 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title DeFAI - #{title || 'Decentralized AI Platform'}
+    
+    link(rel='stylesheet', href='/css/common.css')
+    link(rel='stylesheet', href='/css/pages.css')
+    link(rel='stylesheet', href='/css/analysis.css')
+    link(rel='stylesheet', href='/css/footer_header.css')
+    
+    link(href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css', rel='stylesheet')
+    
+    block styles
+
+  body
+    .app-container
+      block content
+    
+    script(type='module', src='/js/utils.js')
+    script(type='module', src='/js/api-client.js')
+    script(type='module', src='/js/components.js')
+    script(type='module', src='/js/navigation.js')
+    
+    block scripts

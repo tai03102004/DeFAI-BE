@@ -1,0 +1,65 @@
+extends ../layout
+
+block content
+  include ../layout/header
+  .memepad-container
+    .prediction-header
+      h2 Price Predictions
+      .prediction-balance
+        .balance-amount#userBalance 0
+        .balance-label GUI Available
+
+    .active-predictions
+      .section-title Your Active Predictions
+      .predictions-list#activePredictions
+        .empty-state
+          i.fas.fa-chart-line
+          p No active predictions
+          small Make your first prediction below!
+
+    .prediction-section
+      .section-title Make Prediction
+      .prediction-form
+        .coin-selection
+          .coin-option.active(data-coin="bitcoin")
+            .coin-icon: span BTC
+            .coin-info
+              .coin-name Bitcoin
+              .coin-price#btcPrice $0
+          
+          .coin-option(data-coin="ethereum")
+            .coin-icon: span ETH
+            .coin-info
+              .coin-name Ethereum
+              .coin-price#ethPrice $0
+
+        .prediction-direction
+          .direction-title Choose Direction (24h)
+          .direction-buttons
+            button.direction-btn.up-btn(data-direction="up")
+              i.fas.fa-arrow-up
+              span UP
+              small Will increase
+            
+            button.direction-btn.down-btn(data-direction="down")
+              i.fas.fa-arrow-down
+              span DOWN
+              small Will decrease
+
+        .prediction-wager
+          .wager-title Wager Amount
+          .wager-input
+            input#wagerAmount(type="number" value="10" min="10" max="100")
+            span GUI
+
+        .prediction-submit
+          button#submitPrediction.submit-btn Submit Prediction
+
+    .prediction-history
+      .section-title Recent Predictions
+      .history-list#predictionHistory
+
+  include ../layout/footer
+
+block scripts
+  script(type='module', src='/js/memepad.js')

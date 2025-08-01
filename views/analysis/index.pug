@@ -1,0 +1,103 @@
+extends ../layout
+
+block content
+  .container
+    include ../layout/header
+
+    .analysis-page
+      .analysis-controls
+        .coin-selector
+          button.coin-btn.active(data-coin="bitcoin") 
+            .coin-icon 
+              img(src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC")
+            span BTC
+          button.coin-btn(data-coin="ethereum")
+            .coin-icon
+              img(src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="ETH")
+            span ETH
+        
+        button.refresh-btn#refreshBtn
+          i.fas.fa-sync-alt
+          span Refresh
+
+      .loading-container#loadingContainer
+        .loading-animation
+          .crypto-loader
+            .bitcoin-symbol ₿
+            .ethereum-symbol Ξ
+          .loading-text
+            h3 Analyzing Market Data
+            .loading-dots
+              span.dot
+              span.dot
+              span.dot
+          .loading-progress
+            .progress-bar
+
+      .analysis-results#analysisResults(style="display: none;")
+        .price-card
+          .price-header
+            .coin-info
+              .coin-logo#coinLogo
+              .coin-name#coinName Bitcoin
+              .coin-symbol#coinSymbol BTC
+            .price-change#priceChange
+          .price-main
+            .current-price#currentPrice $0.00
+            .price-stats
+              .stat-item
+                .stat-label 24h Volume
+                .stat-value#volume24h $0M
+              .stat-item
+                .stat-label Market Cap
+                .stat-value#marketCap $0B
+
+        .indicators-card
+          .card-header
+            h3 📊 Technical Indicators
+          .indicators-grid
+            .indicator-item
+              .indicator-label RSI
+              .indicator-value#rsiValue
+                .value-number 0
+                .signal-badge#rsiSignal
+            .indicator-item
+              .indicator-label MACD
+              .indicator-value#macdValue
+                .value-number 0.00
+                .signal-badge#macdSignal
+            .indicator-item
+              .indicator-label EMA
+              .indicator-value#emaValue
+                .value-number $0.00
+            .indicator-item
+              .indicator-label SMA
+              .indicator-value#smaValue
+                .value-number $0.00
+
+        .ai-analysis-card#aiAnalysisCard
+          .card-header
+            h3 🤖 AI Analysis
+          .ai-content#aiContent
+            .typing-indicator
+              span Analyzing...
+              .typing-dots
+                span.dot
+                span.dot
+                span.dot
+
+        .signals-card#signalsCard(style="display: none;")
+          .card-header
+            h3 📈 Trading Signals
+          .signals-list#signalsList
+
+        .alerts-card#alertsCard(style="display: none;")
+          .card-header
+            h3 🚨 Active Alerts
+          .alerts-list#alertsList
+
+    include ../layout/footer
+
+block styles
+  link(rel="stylesheet", href="/css/analysis.css")
+  link(href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css", rel="stylesheet")
